@@ -1,89 +1,45 @@
 const display = document.getElementById('display');
-let firstNum = null;
-let operator = null;
-let shouldReset = false;
+let expression = '';
 
-function add(a, b) {
-  return a + b;
-}
-
-function subtract(a, b) {
-  return a - b;
-}
-
-function multiply(a, b) {
-  return a * b;
-}
-
+function add(a, b) { return a + b; }
+function subtract(a, b) { return a - b; }
+function multiply(a, b) { return a * b; }
 function divide(a, b) {
   if (b === 0) return 'Błąd';
   return a / b;
+}
+
+function safeEval(expr) {
+  try {
+    return Function('"use strict"; return (' + expr + ')')();
+  } catch {
+    return 'Błąd';
+  }
 }
 
 document.querySelectorAll('button').forEach(btn => {
   btn.addEventListener('click', () => {
     const val = btn.textContent;
 
-    if (!isNaN(val) && val.trim() !== '') {
-      if (display.value === '0' || shouldReset) {
-        display.value = val;
-        shouldReset = false;
-      } else {
-        display.value += val;
-      }
+    if ((!isNaN(val) && val.trim() !== '') || val === '(' || val === ')') {
+      expression += val;
+      display.value = expression;
     }
 
-    if (val === '+') {
-      firstNum = parseFloat(display.value);
-      operator = '+';
-      shouldReset = true;
-    }
-
-    if (val === '-') {
-      firstNum = parseFloat(display.value);
-      operator = '-';
-      shouldReset = true;
-    }
-
-    if (val === '*') {
-      firstNum = parseFloat(display.value);
-      operator = '*';
-      shouldReset = true;
-    }
-
-    if (val === '/') {
-      firstNum = parseFloat(display.value);
-      operator = '/';
-      shouldReset = true;
+    if (val === '+' || val === '-' || val === '*' || val === '/') {
+      expression += val;
+      display.value = expression;
     }
 
     if (val === 'C') {
+      expression = '';
       display.value = '0';
-      firstNum = null;
-      operator = null;
     }
 
     if (val === '=') {
-      if (operator === '+') {
-        display.value = add(firstNum, parseFloat(display.value));
-        operator = null;
-        shouldReset = true;
-      }
-      if (operator === '-') {
-        display.value = subtract(firstNum, parseFloat(display.value));
-        operator = null;
-        shouldReset = true;
-      }
-      if (operator === '*') {
-        display.value = multiply(firstNum, parseFloat(display.value));
-        operator = null;
-        shouldReset = true;
-      }
-      if (operator === '/') {
-        display.value = divide(firstNum, parseFloat(display.value));
-        operator = null;
-        shouldReset = true;
-      }
+      const result = safeEval(expression);
+      display.value = result;
+      expression = String(result);
     }
   });
 });

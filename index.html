@@ -13,14 +13,12 @@
       background: #1a1a2e;
       font-family: sans-serif;
     }
-
     .calculator {
       background: #16213e;
       border-radius: 12px;
       padding: 20px;
       box-shadow: 0 0 30px rgba(0,0,0,0.5);
     }
-
     #display {
       width: 100%;
       height: 60px;
@@ -34,13 +32,11 @@
       box-sizing: border-box;
       margin-bottom: 16px;
     }
-
     .buttons {
       display: grid;
       grid-template-columns: repeat(4, 70px);
       gap: 10px;
     }
-
     button {
       height: 70px;
       font-size: 1.4rem;
@@ -49,27 +45,12 @@
       cursor: pointer;
       background: #e94560;
       color: white;
-      transition: background 0.2s;
     }
-
-    button:hover {
-      background: #c73652;
-    }
-
-    button.number {
-      background: #0f3460;
-    }
-
-    button.number:hover {
-      background: #1a4a8a;
-    }
-
-    button.equals {
-      background: #4caf50;
-    }
-
-    button.equals:hover {
-      background: #388e3c;
+    button.number { background: #0f3460; }
+    button.equals { background: #4caf50; }
+    button.paren  { background: #7b2d8b; }
+    button.wide {
+      grid-column: span 2;
     }
   </style>
 </head>
@@ -77,10 +58,15 @@
   <div class="calculator">
     <input type="text" id="display" readonly placeholder="0">
     <div class="buttons">
+      <button class="paren">(</button>
+      <button class="paren">)</button>
+      <button>C</button>
+      <button>/</button>
+
       <button class="number">7</button>
       <button class="number">8</button>
       <button class="number">9</button>
-      <button>+</button>
+      <button>*</button>
 
       <button class="number">4</button>
       <button class="number">5</button>
@@ -90,12 +76,10 @@
       <button class="number">1</button>
       <button class="number">2</button>
       <button class="number">3</button>
-      <button>*</button>
+      <button>+</button>
 
-      <button>C</button>
-      <button class="number">0</button>
-      <button class="equals">=</button>
-      <button>/</button>
+      <button class="number wide">0</button>
+      <button class="equals wide">=</button>
     </div>
   </div>
   <script src="app.js"></script>
