@@ -11,6 +11,18 @@ function subtract(a, b) {
   return a - b;
 }
 
+<<<<<<< HEAD
+=======
+function multiply(a, b) {
+  return a * b;
+}
+
+function divide(a, b) {
+  if (b === 0) return 'Błąd';
+  return a / b;
+}
+
+>>>>>>> feature-mul-div
 document.querySelectorAll('button').forEach(btn => {
   btn.addEventListener('click', () => {
     const val = btn.textContent;
@@ -36,6 +48,21 @@ document.querySelectorAll('button').forEach(btn => {
       shouldReset = true;
     }
 
+<<<<<<< HEAD
+=======
+    if (val === '*') {
+      firstNum = parseFloat(display.value);
+      operator = '*';
+      shouldReset = true;
+    }
+
+    if (val === '/') {
+      firstNum = parseFloat(display.value);
+      operator = '/';
+      shouldReset = true;
+    }
+
+>>>>>>> feature-mul-div
     if (val === 'C') {
       display.value = '0';
       firstNum = null;
@@ -53,6 +80,19 @@ document.querySelectorAll('button').forEach(btn => {
         operator = null;
         shouldReset = true;
       }
+<<<<<<< HEAD
+=======
+      if (operator === '*') {
+        display.value = multiply(firstNum, parseFloat(display.value));
+        operator = null;
+        shouldReset = true;
+      }
+      if (operator === '/') {
+        display.value = divide(firstNum, parseFloat(display.value));
+        operator = null;
+        shouldReset = true;
+      }
+>>>>>>> feature-mul-div
     }
   });
 });
